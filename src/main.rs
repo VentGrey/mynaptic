@@ -1,16 +1,17 @@
 use gtk::prelude::*;
-use gtk::{ApplicationWindow, Builder};
+use gtk::{gio, glib};
+use gtk::{Application, ApplicationWindow, Builder, Menu, MenuBar, MenuItem};
 
 fn main() {
     // Create a new application
-    let app = gtk::Application::new(Some("codes.upvent.mynaptic"), Default::default());
+    let app = Application::new(Some("codes.upvent.mynaptic"), Default::default());
     app.connect_activate(build_ui);
 
     // Run the application
     app.run();
 }
 
-fn build_ui(app: &gtk::Application) {
+fn build_ui(app: &Application) {
 
     // Indicate where is our main window file
     let glade_src = include_str!("ui/main.glade");

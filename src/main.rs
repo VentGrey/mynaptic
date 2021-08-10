@@ -21,9 +21,21 @@ fn build_ui(app: &Application) {
 
     /* Window objects go here */
 
-
+    // Main application window
     let window: ApplicationWindow = builder.object("window").expect("Couldn't get window");
     window.set_application(Some(app));
+
+    // Menu bar from glade UI
+    let menubar: MenuBar = builder.object("menu_bar").expect("Couldn't get menu bar");
+
+    /* Menu bar and it's items */
+
+    // Main Menu
+    let menu = Menu::new();
+
+    /* Menu options */
+    let file = MenuItem::with_label("File");
+    let about = MenuItem::with_label("About");
 
 
     // Draw window with all of it's components

@@ -1,37 +1,30 @@
 use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow, Button};
+use gtk::{ApplicationWindow, Builder};
 
 fn main() {
     // Create a new application
-    let app = Application::new(Some("org.gtk.example"), Default::default());
+    let app = gtk::Application::new(Some("codes.upvent.mynaptic"), Default::default());
     app.connect_activate(build_ui);
 
     // Run the application
     app.run();
 }
 
-fn build_ui(app: &Application) {
-    // Create a window
-    let window = ApplicationWindow::new(app);
+fn build_ui(app: &gtk::Application) {
 
-    // Create a button
-    let button = Button::with_label("Press me!");
+    // Indicate where is our main window file
+    let glade_src = include_str!("ui/main.glade");
 
-    // Set the button margins
-    button.set_margin_top(12);
-    button.set_margin_bottom(12);
-    button.set_margin_start(12);
-    button.set_margin_end(12);
+    // Create a new builder using our glade form
+    let builder = Builder::from_string(glade_src);
 
-    // Connect callback
-    button.connect_clicked(move |button| {
-        button.set_label("Hello World");
-    });
+    /* Window objects go here */
 
-    // Set the window title
-    window.set_title("Mynaptic Package Manager");
 
-    // Add button
-    window.add(&button);
+    let window: ApplicationWindow = builder.object("window").expect("Couldn't get window");
+    window.set_application(Some(app));
+
+
+    // Draw window with all of it's components
     window.show_all();
 }
